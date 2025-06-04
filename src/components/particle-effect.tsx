@@ -122,10 +122,13 @@ export default function ParticleEffect({
 
     function createInitialParticles() {
       const baseParticleCount = particleCount[0];
-      const particleCountScaled = Math.floor(
-        baseParticleCount *
-          Math.sqrt((canvas.width * canvas.height) / (1920 * 1080))
-      );
+      let particleCountScaled = baseParticleCount;
+      if (canvas) {
+        particleCountScaled = Math.floor(
+          baseParticleCount *
+            Math.sqrt((canvas.width * canvas.height) / (1920 * 1080))
+        );
+      }
       for (let i = 0; i < particleCountScaled; i++) {
         const particle = createParticle();
         if (particle) particles.push(particle);
