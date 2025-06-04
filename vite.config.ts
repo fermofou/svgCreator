@@ -12,7 +12,7 @@ export default defineConfig({
     },
   },
   // Add base path for GitHub Pages
-  base: process.env.NODE_ENV === "production" ? "/svgcreator/" : "/",
+  base: "/svgcreator/",
   build: {
     outDir: "dist",
     assetsDir: "assets",
