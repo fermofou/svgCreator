@@ -11,4 +11,10 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  // Add base path for GitHub Pages
+  base: process.env.NODE_ENV === "production" ? "/svgcreator/" : "/",
+  build: {
+    outDir: "dist",
+    assetsDir: "assets",
+  },
 });

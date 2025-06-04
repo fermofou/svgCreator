@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Home from "./app/page";
 
 function App() {
