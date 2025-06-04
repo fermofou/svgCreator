@@ -343,7 +343,7 @@ export default function ImageUpload({ onSvgCreated }: ImageUploadProps) {
               </Button>
 
               <Button
-                variant="outline"
+                variant="default"
                 size="sm"
                 onClick={() => setShowSettings(!showSettings)}
                 className="ml-2 text-white border-gray-600 hover:bg-gray-800"

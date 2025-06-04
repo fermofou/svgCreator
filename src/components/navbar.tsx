@@ -27,20 +27,28 @@ export default function Navbar({
             </h1>
 
             <Button
-              variant={mode === "upload" ? "default" : "ghost"}
+              variant={mode === "upload" ? "default" : "default"}
               size="sm"
               onClick={() => onModeChange("upload")}
-              className="text-white hover:text-cyan-400"
+              className={
+                mode === "upload"
+                  ? "text-cyan-400"
+                  : "text-gray-400 hover:text-cyan-400"
+              }
             >
               <Upload className="w-4 h-4 mr-2" />
               Upload Image/SVG
             </Button>
 
             <Button
-              variant={mode === "draw" ? "default" : "ghost"}
+              variant={mode === "draw" ? "default" : "default"}
               size="sm"
               onClick={() => onModeChange("draw")}
-              className="text-white hover:text-cyan-400"
+              className={
+                mode === "draw"
+                  ? "text-cyan-400"
+                  : "text-gray-400 hover:text-cyan-400"
+              }
             >
               <Paintbrush className="w-4 h-4 mr-2" />
               Draw
@@ -48,10 +56,14 @@ export default function Navbar({
 
             {hasContent && (
               <Button
-                variant={mode === "preview" ? "default" : "ghost"}
+                variant={mode === "preview" ? "default" : "default"}
                 size="sm"
                 onClick={() => onModeChange("preview")}
-                className="text-white hover:text-cyan-400"
+                className={
+                  mode === "preview"
+                    ? "text-cyan-400"
+                    : "text-gray-400 hover:text-cyan-400"
+                }
               >
                 <Eye className="w-4 h-4 mr-2" />
                 Preview
@@ -61,7 +73,7 @@ export default function Navbar({
 
           {hasContent && (
             <Button
-              variant="outline"
+              variant={mode === "preview" ? "destructive" : "ghost"}
               size="sm"
               onClick={onReset}
               className="text-white border-gray-600 hover:bg-gray-800"

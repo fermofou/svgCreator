@@ -4,7 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
-import { Copy, Check, Settings, Palette } from "lucide-react";
+import { Copy, Check, Settings, Palette, Download } from "lucide-react";
 
 interface ParticleEffectProps {
   svgData: string;
@@ -510,6 +510,26 @@ export default function ParticleEffect({ svgData, viewBox }) {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleDownloadSvg = () => {
+    // Create an SVG string with particleColor fill
+    const coloredSvg = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox}" fill="${particleColor}">
+      <path d="${svgData}" />
+    </svg>
+  `;
+
+    const blob = new Blob([coloredSvg], { type: "image/svg+xml" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "particle.svg";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="relative w-full h-screen flex flex-col items-center justify-center bg-black">
       <canvas
@@ -518,20 +538,34 @@ export default function ParticleEffect({ svgData, viewBox }) {
         aria-label="Interactive particle effect with your custom SVG"
       />
 
-      {/* Settings Panel */}
-      <div className="absolute top-20 right-4 z-10">
+      {/* Top Controls - Download and Settings */}
+      <div className="absolute top-20 right-4 z-10 flex gap-2">
+        {/* Download SVG Button */}
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleDownloadSvg}
+          className="text-white border-gray-600 hover:bg-gray-800 bg-black/80 backdrop-blur-sm hover:text-cyan-400"
+        >
+          <Download className="w-4 h-4 mr-2" />
+          Download SVG
+        </Button>
+
+        {/* Settings Toggle Button */}
         <Button
           variant="outline"
           size="sm"
           onClick={() => setShowSettings(!showSettings)}
-          className="text-white border-gray-600 hover:bg-gray-800"
+          className="text-white border-gray-600 hover:bg-gray-800 bg-black/80 backdrop-blur-sm hover:text-cyan-400"
         >
           <Settings className="w-4 h-4 mr-2" />
           {showSettings ? "Hide Settings" : "Particle Settings"}
         </Button>
-
-        {showSettings && (
-          <Card className="mt-2 p-4 bg-black/80 backdrop-blur-sm border-gray-700 w-72">
+      </div>
+      {/* Settings Panel */}
+      {showSettings && (
+        <div className="absolute top-32 right-4 z-10">
+          <Card className="p-4 bg-black/80 backdrop-blur-sm border-gray-700 w-72">
             <div className="space-y-6">
               <div className="space-y-4">
                 <h3 className="text-white font-medium">Particle Settings</h3>
@@ -656,8 +690,8 @@ export default function ParticleEffect({ svgData, viewBox }) {
               </Button>
             </div>
           </Card>
-        )}
-      </div>
+        </div>
+      )}
 
       <div className="absolute bottom-8 text-center z-10">
         <p className="font-mono text-gray-400 text-sm">
