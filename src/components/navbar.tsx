@@ -11,7 +11,7 @@ interface NavbarProps {
   hasContent: boolean;
 }
 
-export function Navbar({
+export default function Navbar({
   mode,
   onModeChange,
   onReset,
@@ -33,7 +33,7 @@ export function Navbar({
               className="text-white hover:text-cyan-400"
             >
               <Upload className="w-4 h-4 mr-2" />
-              Upload SVG
+              Upload Image/SVG
             </Button>
 
             <Button

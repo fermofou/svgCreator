@@ -12,7 +12,7 @@ interface CanvasDrawProps {
   onSvgCreated: (svg: string, viewBox?: string) => void;
 }
 
-export function CanvasDraw({ onSvgCreated }: CanvasDrawProps) {
+export default function CanvasDraw({ onSvgCreated }: CanvasDrawProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [brushSize, setBrushSize] = useState([5]);
@@ -30,6 +30,12 @@ export function CanvasDraw({ onSvgCreated }: CanvasDrawProps) {
 
     setIsDrawing(true);
     setCurrentPath(`M ${x} ${y}`);
+
+    const ctx = canvas.getContext("2d");
+    if (ctx) {
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+    }
   };
 
   const draw = (e: React.MouseEvent<HTMLCanvasElement>) => {
